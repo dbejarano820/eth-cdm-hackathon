@@ -7,3 +7,6 @@
 [submodule "contracts/lib/aave-v3-core"]
 	path = contracts/lib/aave-v3-core
 	url = https://github.com/aave/aave-v3-core
+[submodule "contracts/lib/openzeppelin-contracts-upgradeable"]
+	path = contracts/lib/openzeppelin-contracts-upgradeable
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable
