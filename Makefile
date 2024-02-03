@@ -1,5 +1,5 @@
 deps:
-	@ cd ./contracts/ && forge install OpenZeppelin/openzeppelin-contracts-upgradeable
+	@ cd ./contracts/ && npm install @openzeppelin/contracts-upgradeable @aave/core-v3 && forge install foundry-rs/forge-std
 
 install-ethereum-foundry:
 	curl -L https://foundry.paradigm.xyz | bash && foundryup
