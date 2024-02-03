@@ -1,7 +1,7 @@
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 import axios from 'axios';
-import { Order } from '../../../interfaces';
+import { Order, Wallet as Wallets } from '../../../interfaces';
 import { ethers, Wallet } from "ethers";
 
 export async function GET(request: Request) {
@@ -12,8 +12,11 @@ export async function GET(request: Request) {
     try {
 
         // traer orden de la bd
-        const result = await sql`SELECT * from Orders WHERE id = ${orderId};`;
-        const order = result.rows[0] as Order;
+        const orders_result = await sql`SELECT * from Orders WHERE id = ${orderId};`;
+        const order = orders_result.rows[0] as Order;
+
+        const wallets_result = await sql`SELECT * from Wallets WHERE user_id = ${order.user_id};`;
+        const user_wallet = wallets_result.rows[0] as Wallets;
 
         // traer la tx via API
         const params = {
@@ -414,8 +417,7 @@ export async function GET(request: Request) {
         const contract = new ethers.Contract(process.env.ESCROW_CONTRACT!, ABI, provider);
 
         const contractWithWallet = contract.connect(wallet);
-        // TODO: update user wallet
-        const resultTx = await contractWithWallet.validate('0xEBdf70B26e5e7520B8B79e1D01eD832f48972B09', orderId, tx, order.amount, status);
+        const resultTx = await contractWithWallet.validate(user_wallet.public_key, orderId, tx, order.amount, status);
         await resultTx.wait();
 
     } catch (error) {
