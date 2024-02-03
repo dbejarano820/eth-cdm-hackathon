@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useRouter } from 'next/navigation';
 import { Button } from '@tremor/react';
 
@@ -10,4 +10,4 @@ export function BackButton() {
       Atrás
     </Button>
   );
-};
+}

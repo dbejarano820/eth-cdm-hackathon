@@ -1,1 +1,1 @@
-export const BLOCKCHAINS = ['Avalanche', 'Ethereum', 'Vara']
+export const BLOCKCHAINS = ['Avalanche', 'Ethereum', 'Vara'];
