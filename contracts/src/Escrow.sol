@@ -25,7 +25,7 @@ contract Escrow is Initializable, OwnableUpgradeable {
 
     event Deposit(uint256 indexed orderId, address srcAddress, TransferInfo transferInfo);
 
-    mapping(address => amount) public balance;
+    mapping(address => uint256) public balance;
 
     constructor() {
         _disableInitializers();
@@ -35,7 +35,7 @@ contract Escrow is Initializable, OwnableUpgradeable {
         __Ownable_init(msg.sender);
     }
 
-    function deposit() external payable onlyOwnerOrMM {
+    function deposit() external payable {
     }
 
     function withdraw() external payable {
