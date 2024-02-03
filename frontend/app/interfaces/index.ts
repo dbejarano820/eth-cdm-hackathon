@@ -13,7 +13,7 @@ export interface Wallet {
     balance: number;
 }
 
-enum OrderStatusLabel {
+export enum OrderStatusLabel {
     Pending = "Pending",
     Completed = "Completed",
     Incomplete = "Incomplete",
