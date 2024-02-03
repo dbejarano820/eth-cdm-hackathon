@@ -4,7 +4,6 @@ CREATE TYPE order_status_enum AS ENUM ('Pending', 'Completed', 'Incomplete', 'Ex
 -- Create ENUM type for supported blockchains
 CREATE TYPE blockchain_enum AS ENUM ('Avalanche', 'Ethereum', 'Vara');
 
-
 -- Users Table
 CREATE TABLE Users (
     id SERIAL PRIMARY KEY,
@@ -33,5 +32,5 @@ CREATE TABLE Orders (
     order_status order_status_enum NOT NULL,
     transaction_hash VARCHAR(255),
     payed_amount INTEGER,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
