@@ -11,6 +11,11 @@ const nextConfig = {
         hostname: 'avatar.vercel.sh'
       }
     ]
+  }, 
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
   }
 };
 
