@@ -4,7 +4,7 @@ import Search from './search';
 import MerchantBalance from './components/merchant-balance';
 import { Order } from './interfaces';
 import OrderCard from './components/order-card';
-import PlusIcon from './icons/PlusIcon';
+import Link from 'next/link';
 
 export default async function IndexPage({
   searchParams
@@ -24,9 +24,11 @@ export default async function IndexPage({
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
       <MerchantBalance balance={9141} interest={13} />
       <div className="flex justify-around mt-3">
+        <Link href='/order'>
         <Button variant="light" className="text-xl">
           + Nuevo pago
         </Button>
+        </Link>
       </div>
       <Divider />
       <div className="p-4">
