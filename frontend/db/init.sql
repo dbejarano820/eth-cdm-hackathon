@@ -24,6 +24,7 @@ CREATE TABLE Orders (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES Users(id),
     amount INTEGER NOT NULL,
+    description TEXT,
     order_status order_status_enum NOT NULL,
     transaction_hash VARCHAR(255),
     payed_amount INTEGER

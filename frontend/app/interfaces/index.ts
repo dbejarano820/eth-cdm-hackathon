@@ -24,6 +24,7 @@ export interface Order {
     id: string;
     user_id: string;
     amount: number;
+    description: string;
     order_status: OrderStatusLabel;
     transaction_hash: string;
     payed_amount: number;
