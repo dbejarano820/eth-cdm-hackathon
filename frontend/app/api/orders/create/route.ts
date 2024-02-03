@@ -8,7 +8,7 @@ import { NextResponse } from 'next/server';
     const description = searchParams.get('description');
     const paymentUrl = searchParams.get('paymentUrl');
     const orderStatus = 'Pending';
-    
+
     try {
         // TODO: validar que exista el usuario
         // if (!user || !ownerName) throw new Error('User not exist');

@@ -412,7 +412,7 @@ export async function GET(request: Request) {
 
         const wallet = new Wallet(process.env.PRIVATE_KEY!, provider);
         const contract = new ethers.Contract(process.env.ESCROW_CONTRACT!, ABI, provider);
-        
+
         const contractWithWallet = contract.connect(wallet);
         // TODO: update user wallet
         const resultTx = await contractWithWallet.validate('0xEBdf70B26e5e7520B8B79e1D01eD832f48972B09', orderId, tx, order.amount, status);
