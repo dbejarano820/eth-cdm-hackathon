@@ -24,7 +24,6 @@ export default function RootLayout({
         </Suspense>
         {children}
         <Analytics />
-        <Toast />
       </body>
     </html>
   );
