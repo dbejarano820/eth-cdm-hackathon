@@ -1,9 +1,9 @@
 import { sql } from '@vercel/postgres';
-import { Card, Title, Text } from '@tremor/react';
+import { Title, Text } from '@tremor/react';
 import Search from './search';
-import UsersTable from './table';
 import MerchantBalance from './components/merchant-balance';
 import { Order } from './interfaces';
+import OrderCard from './components/order-card';
 
 export default async function IndexPage({
   searchParams
@@ -28,16 +28,10 @@ export default async function IndexPage({
         <div className='mt-6 overflow-auto h-96'>
           {orders.length > 0 ? (
             orders.map((order) => (
-              //Create client component for payment history -> clickable toast for info
-              <Card key={order.id} className='mt-6'>
-                <Text>Description: {order.description}</Text>
-                <Text>Amount: {order.amount}</Text>
-                <Text>Amount Payed: {order.payed_amount}</Text>
-                <Text>Order Status: {order.order_status}</Text>
-              </Card>
+              <OrderCard order={order} />
             ))
           ) : (
-            <Text>No orders found.</Text> // Handling for empty orders array
+            <Text>No orders found.</Text>
           )}
         </div>
       </div>
