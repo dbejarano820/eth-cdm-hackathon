@@ -1,9 +1,14 @@
+-- Create ENUM type for order status
+CREATE TYPE order_status_enum AS ENUM ('Pending', 'Completed', 'Incomplete', 'Expired');
+
+-- Users Table
 CREATE TABLE Users (
     id VARCHAR(255) PRIMARY KEY,
     correo VARCHAR(255) NOT NULL,
     total_balance INTEGER NOT NULL
 );
 
+-- Wallets Table
 CREATE TABLE Wallets (
     id VARCHAR(255) PRIMARY KEY,
     user_id VARCHAR(255) REFERENCES Users(id),
@@ -13,22 +18,12 @@ CREATE TABLE Wallets (
     balance INTEGER NOT NULL
 );
 
-CREATE TABLE OrderStatus (
-    id VARCHAR(255) PRIMARY KEY,
-    label VARCHAR(255) NOT NULL
-);
-
+-- Orders Table
 CREATE TABLE Orders (
     id VARCHAR(255) PRIMARY KEY,
     user_id VARCHAR(255) REFERENCES Users(id),
     amount INTEGER NOT NULL,
-    order_status VARCHAR(255) REFERENCES OrderStatus(id),
+    order_status order_status_enum NOT NULL,
     transaction_hash VARCHAR(255) NOT NULL,
     payed_amount INTEGER NOT NULL
 );
-
-INSERT INTO OrderStatus (id, label) VALUES
-    ('pending', 'Pending'),
-    ('completed', 'Completed'),
-    ('incomplete', 'Imcomplete'),
-    ('expired', 'expired');
