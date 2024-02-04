@@ -26,13 +26,13 @@ export default async function IndexPage({
       <div className="flex justify-around mt-3">
         <Link href="/order">
           <Button variant="light" className="text-xl">
-            + Nuevo pago
+            + Create new order
           </Button>
         </Link>
       </div>
       <Divider />
       <div className="p-4">
-        <Title>Historial de pagos</Title>
+        <Title>Payments history</Title>
         <Search />
         <div className="mt-6 overflow-auto h-96">
           {orders.length > 0 ? (
