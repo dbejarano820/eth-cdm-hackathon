@@ -3,7 +3,7 @@ src = "src"
 out = "out"
 libs = ["lib"]
 gas_reports = ["*"]
-remappings = ["@openzeppelin/contracts-upgradeable=lib/openzeppelin-contracts-upgradeable/contracts", "@aave/core-v3/contracts/=lib/aave-v3-core/contracts/"]
+remappings = ["@openzeppelin/contracts=lib/openzeppelin-contracts/contracts", "@openzeppelin/contracts-upgradeable=lib/openzeppelin-contracts-upgradeable/contracts", "@aave/core-v3/contracts/=lib/aave-v3-core/contracts/"]
 
 [rpc_endpoints]
 goerli = "${GOERLI_RPC_URL}"
