@@ -24,10 +24,18 @@ export default function StatsPage() {
     setIsSubmitting(true);
     // Aquí iría la lógica para llamar a tu API con los datos del formulario
     // const response = await fetch('tu-api-endpoint', { ... });
+    const response = await fetch(
+      `/api/orders/create?userId=${1}&amount=${amount}&description=${description}&blockchain=${selectedChain}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
 
-    // Simulamos una respuesta de la API que contiene el dato para generar el QR
-    console.log(amount, description, selectedChain);
-    const mockApiResponse = { qrData: 'tu-data-para-el-qr' };
+    const result = await response.json();
+    const mockApiResponse = { qrData: result.order.payment_url };
     setQRCode(mockApiResponse.qrData);
     setIsSubmitting(false);
   };
