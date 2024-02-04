@@ -9,7 +9,7 @@ cd contracts/
 printf "${GREEN}\n=> [ETH] Deploying Escrow ${COLOR_RESET}\n"
 
 RESULT_LOG=$(forge script ./script/Deploy.s.sol --rpc-url $ETH_RPC_URL --broadcast --verify)
-# echo "$RESULT_LOG" #uncomment this line for debugging in detail
+echo "$RESULT_LOG" #uncomment this line for debugging in detail
 
 # Getting result addresses
 ESCROW_ADDRESS=$(echo "$RESULT_LOG" | grep -Eo '0: address ([^\n]+)' | awk '{print $NF}')

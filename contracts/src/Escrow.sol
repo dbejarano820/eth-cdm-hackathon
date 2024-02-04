@@ -1,11 +1,11 @@
-// SPDX-License-Identifier: Apache-2.0
-pragma solidity ^0.8.20;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
 
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import {IPool} from "@aave/core-v3/contracts/interfaces/IPool.sol";
 import {IPriceOracle} from "@aave/core-v3/contracts/interfaces/IPriceOracle.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 library Balances {
     function move(mapping(address => uint256) storage balances, address from, address to, uint amount) internal {
@@ -46,12 +46,12 @@ contract Escrow is Initializable, OwnableUpgradeable {
         _disableInitializers();
     }
 
-    function initialize(address usdcToken, address aavePoolProxy) public initializer { 
-        // __Ownable_init(msg.sender);
-        _usdcToken = usdcToken;
-        _aavePoolProxy = aavePoolProxy;
+    function initialize() public initializer { 
+        _latestSupplyTime = block.timestamp;
+        // _usdcToken = usdcToken;
+        // _aavePoolProxy = aavePoolProxy;
     }
-
+    
     // TODO: add onlyOwner
     function validate(address merchant, uint256 orderId, uint256 transaction, uint256 orderAmount, string memory orderStatus) external {
         _balances[merchant] += orderAmount;
@@ -69,11 +69,6 @@ contract Escrow is Initializable, OwnableUpgradeable {
         uint256 USDCEscrowBalance = IERC20(_usdcToken).balanceOf(address(this));
         IPool(_aavePoolProxy).supply(_usdcToken, USDCEscrowBalance, address(this), 0);
         emit CollateralDeposit(address(this), USDCEscrowBalance, _usdcToken);
-        // // swap AVAX to USDC
-        // // check if we should deposit on aave
-        // if (USDCEscrowBalance > MINIMUN_TOKEN_AMOUNT * 10 ** IERC20(USDC_ADDRESS).decimals() || _latestSupplyTime + LIMIT_DEPOSIT_DAYS >= block.timestamp) {
-        //     _latestSupplyTime = block.timestamp;
-        // }
     }
 
     function withdraw(address payable merchant) external payable onlyOwner {
@@ -96,6 +91,14 @@ contract Escrow is Initializable, OwnableUpgradeable {
 
     function getOwner() external view returns (address) {
         return owner();
+    }
+
+    function getUSDC() external view returns (address) {
+        return _usdcToken;
+    }
+
+    function getAave() external view returns (address) {
+        return _aavePoolProxy;
     }
 
     receive() external payable {
