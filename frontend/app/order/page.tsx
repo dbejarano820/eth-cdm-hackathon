@@ -45,7 +45,8 @@ export default function StatsPage() {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        cache: "no-store"
       }
     );
 

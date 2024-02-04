@@ -24,7 +24,8 @@ export function PaymentButton({
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
-          }
+          },
+          cache: "no-store"
         }
       );
       const result = await response.json();
