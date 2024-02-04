@@ -5,6 +5,8 @@ import Nav from './nav';
 import Toast from './toast';
 import { Suspense } from 'react';
 
+export const fetchCache = 'force-no-store';
+
 export const metadata = {
   title: 'Next.js App Router + NextAuth + Tailwind CSS',
   description:
