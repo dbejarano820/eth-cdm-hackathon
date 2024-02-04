@@ -4,8 +4,8 @@ pragma solidity ^0.8.20;
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-// import {IPool} from "@aave/core-v3/contracts/interfaces/IPool.sol";
-// import {IPriceOracle} from "@aave/core-v3/contracts/interfaces/IPriceOracle.sol";
+import {IPool} from "@aave/core-v3/contracts/interfaces/IPool.sol";
+import {IPriceOracle} from "@aave/core-v3/contracts/interfaces/IPriceOracle.sol";
 
 library Balances {
     function move(mapping(address => uint256) storage balances, address from, address to, uint amount) internal {
@@ -19,6 +19,8 @@ library Balances {
 contract Escrow is Initializable, OwnableUpgradeable {
     string constant COMPLETE = "complete";
     string constant INCOMPLETE = "incomplete";
+    uint256 constant LIMIT_DEPOSIT_DAYS = 432000; // 5 days
+    uint256 constant MINIMUN_TOKEN_AMOUNT = 5000; 
 
     struct Order {
         address _merchant;
@@ -35,7 +37,8 @@ contract Escrow is Initializable, OwnableUpgradeable {
 
     mapping(address => uint256) _balances;
     mapping(uint256 => Order) _orders;
-    address _nativeToken;
+    uint256 _latestSupplyTime;
+    address _usdcToken;
     // https://docs.aave.com/developers/deployed-contracts/v3-testnet-addresses
     address _aavePoolProxy;
 
@@ -43,39 +46,42 @@ contract Escrow is Initializable, OwnableUpgradeable {
         _disableInitializers();
     }
 
-    function initialize(address nativeToken, address aavePoolProxy) public initializer { 
-        __Ownable_init(msg.sender);
-        _nativeToken = nativeToken;
+    function initialize(address usdcToken, address aavePoolProxy) public initializer { 
+        // __Ownable_init(msg.sender);
+        _usdcToken = usdcToken;
         _aavePoolProxy = aavePoolProxy;
     }
 
-    function validate(address merchant, uint256 orderId, uint256 transaction, uint256 orderAmount) external onlyOwner {
-        string memory orderStatus;
-        if (msg.value == orderAmount) {
-            orderStatus = COMPLETE;
-        } else {
-            orderStatus = INCOMPLETE;
-        }
-
-        _balances[merchant] += msg.value;
+    // TODO: add onlyOwner
+    function validate(address merchant, uint256 orderId, uint256 transaction, uint256 orderAmount, string memory orderStatus) external {
+        _balances[merchant] += orderAmount;
 
         Order memory newOrder = Order({
             _merchant: merchant,
-            _amount: msg.value,
+            _amount: orderAmount,
             _status: orderStatus,
             _tx: transaction
         });
-        _orders[orderId] = newOrder;
 
+        _orders[orderId] = newOrder;
         emit OrderUpdate(orderId, newOrder);
+
+        uint256 USDCEscrowBalance = IERC20(_usdcToken).balanceOf(address(this));
+        IPool(_aavePoolProxy).supply(_usdcToken, USDCEscrowBalance, address(this), 0);
+        emit CollateralDeposit(address(this), USDCEscrowBalance, _usdcToken);
+        // // swap AVAX to USDC
+        // // check if we should deposit on aave
+        // if (USDCEscrowBalance > MINIMUN_TOKEN_AMOUNT * 10 ** IERC20(USDC_ADDRESS).decimals() || _latestSupplyTime + LIMIT_DEPOSIT_DAYS >= block.timestamp) {
+        //     _latestSupplyTime = block.timestamp;
+        // }
     }
 
-    function withdraw(address merchant) external payable onlyOwner {
+    function withdraw(address payable merchant) external payable onlyOwner {
         require(_balances[merchant] > 0, "Merchant balance is zero");
         
         uint256 amountToWithdraw = _balances[merchant];
         _balances[merchant] = 0; 
-        IERC20(_nativeToken).transfer(merchant, amountToWithdraw);
+        merchant.transfer(amountToWithdraw);
 
         emit Withdraw(merchant, amountToWithdraw);
     }
