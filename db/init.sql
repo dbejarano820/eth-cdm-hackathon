@@ -32,5 +32,6 @@ CREATE TABLE Orders (
     order_status order_status_enum NOT NULL,
     transaction_hash VARCHAR(255),
     payed_amount INTEGER,
+    blockchain blockchain_enum NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

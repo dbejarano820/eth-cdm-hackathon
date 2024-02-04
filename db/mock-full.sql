@@ -13,6 +13,6 @@ INSERT INTO Wallets (user_id, public_key, private_key, blockchain, balance) VALU
 -- Assuming order_status_enum has been predefined
 -- Insert mock data into Orders
 INSERT INTO Orders (user_id, amount, description, payment_url, order_status, transaction_hash, payed_amount, created_at) VALUES
-(1, 100, 'Order for user 1', 'http://payment.url/1', 'Pending', 'txHash1', 100, CURRENT_TIMESTAMP),
-(2, 150, 'Order for user 2', 'http://payment.url/2', 'Completed', 'txHash2', 150, CURRENT_TIMESTAMP),
-(3, 200, 'Order for user 3', 'http://payment.url/3', 'Incomplete', 'txHash3', 0, CURRENT_TIMESTAMP);
+(1, 100, 'Order for user 1', 'http://payment.url/1', 'Pending', 'txHash1', 100, 'Avalanche', CURRENT_TIMESTAMP),
+(2, 150, 'Order for user 2', 'http://payment.url/2', 'Completed', 'txHash2', 150, 'Avalanche', CURRENT_TIMESTAMP),
+(3, 200, 'Order for user 3', 'http://payment.url/3', 'Incomplete', 'txHash3', 0, 'Avalanche', CURRENT_TIMESTAMP);
