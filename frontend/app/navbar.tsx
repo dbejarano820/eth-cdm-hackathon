@@ -31,7 +31,7 @@ export default function Navbar({ user }: { user: any }) {
                   </svg>
                 </div>
                 <div className="flex flex-shrink-0 items-center">
-                  <Title>{user.name}</Title>
+                  <Title>{pathname.startsWith('/payment') ? '' : user.name }</Title>
                 </div>
               </div>
             </div>
