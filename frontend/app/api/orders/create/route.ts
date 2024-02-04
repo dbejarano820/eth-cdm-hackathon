@@ -6,13 +6,12 @@ import { NextResponse } from 'next/server';
     const userId = searchParams.get('userId');
     const amount = searchParams.get('amount');
     const description = searchParams.get('description');
-    const paymentUrl = searchParams.get('paymentUrl');
     const orderStatus = 'Pending';
 
     try {
-        // TODO: validar que exista el usuario
-        // if (!user || !ownerName) throw new Error('User not exist');
-        await sql`INSERT INTO Orders (user_id, amount, description, payment_url, created_at, order_status) VALUES (${userId}, ${amount}, ${description}, ${paymentUrl}, CURRENT_TIMESTAMP, ${orderStatus});`;
+        const users_result = await sql`SELECT * from Users WHERE id = ${userId};`;
+        if (users_result.rows.length == 0) throw new Error('Error: User not exist');
+        await sql`INSERT INTO Orders (user_id, amount, description, created_at, order_status) VALUES (${userId}, ${amount}, ${description}, CURRENT_TIMESTAMP, ${orderStatus});`;
     } catch (error) {
         return NextResponse.json({ error }, { status: 500 });
     }

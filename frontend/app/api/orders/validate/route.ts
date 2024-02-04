@@ -13,6 +13,7 @@ export async function GET(request: Request) {
 
         // traer orden de la bd
         const orders_result = await sql`SELECT * from Orders WHERE id = ${orderId};`;
+        if (orders_result.rows.length == 0) throw new Error('Error: Order not exist');
         const order = orders_result.rows[0] as Order;
 
         const wallets_result = await sql`SELECT * from Wallets WHERE user_id = ${order.user_id};`;

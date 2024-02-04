@@ -8,7 +8,9 @@ export async function GET(request: Request) {
     const blockchain = searchParams.get('blockchain');
     
     try {
-        // TODO: validar si el usuario ya tiene una wallet
+        const wallets_result = await sql`SELECT * from Wallets WHERE user_id = ${userId} and blockchain = ${blockchain};`;
+        if (wallets_result.rows.length > 0) throw new Error('Error: The user already has a wallet');
+
         const randomWallet = ethers.Wallet.createRandom();
 
         const publicKey = randomWallet.address;
