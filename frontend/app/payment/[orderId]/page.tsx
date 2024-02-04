@@ -16,7 +16,7 @@ export default async function PaymentPage({
       FROM Orders 
       WHERE id = ${params.orderId};
     `;
-    
+
   const data = results.rows[0];
   const escrow_address = process.env.ESCROW_CONTRACT!;
   // const escrow_address = ESCROW_MAP['Avalanche'];

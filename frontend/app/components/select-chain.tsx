@@ -14,13 +14,18 @@ export function SelectChain({ value, setValue, disabled }: SelectChainProps) {
     marginRight: '10px'
   };
 
-  const blockchainImages = {
+  interface BlockchainImagesMap {
+    [key: string]: string;
+  }
+
+  const blockchainImages: BlockchainImagesMap = {
     Ethereum: 'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=002',
     Avalanche: 'https://cryptologos.cc/logos/avalanche-avax-logo.png?v=029',
     Vara: 'https://i.ibb.co/TTKGKPW/favicon-V2.png',
-    Starknet: 'https://pbs.twimg.com/profile_images/1656626805816565763/WyFDMG6u_400x400.png'
+    Starknet:
+      'https://pbs.twimg.com/profile_images/1656626805816565763/WyFDMG6u_400x400.png'
   };
-  
+
   return (
     <>
       <div className="max-w-sm mx-auto space-y-6">
@@ -33,7 +38,11 @@ export function SelectChain({ value, setValue, disabled }: SelectChainProps) {
           {BLOCKCHAINS.map((blockchain: string) => (
             <SelectItem key={blockchain} value={blockchain}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <img src={blockchainImages[blockchain]} alt={`${blockchain} Logo`} style={{ ...imageStyle, marginRight: '5px' }} /> 
+                <img
+                  src={blockchainImages[blockchain]}
+                  alt={`${blockchain} Logo`}
+                  style={{ ...imageStyle, marginRight: '5px' }}
+                />
                 <span>{blockchain}</span>
               </div>
             </SelectItem>

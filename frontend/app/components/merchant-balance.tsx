@@ -22,11 +22,13 @@ export default function MerchantBalance({
           isIncreasePositive={true}
           size="xs"
         >
-          + ${interest.toLocaleString()+',00'}
+          + ${interest.toLocaleString() + ',00'}
         </BadgeDelta>
       </div>
       <div className="flex items-center justify-between">
-        <h1 style={{ fontSize: '2rem', color: '#434242' }}>$ {balance.toLocaleString()+',00'}</h1>
+        <h1 style={{ fontSize: '2rem', color: '#434242' }}>
+          $ {balance.toLocaleString() + ',00'}
+        </h1>
         {/* <h1>$ {balance.toLocaleString()}</h1> */}
       </div>
     </Card>
