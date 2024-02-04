@@ -23,7 +23,7 @@ export default async function IndexPage({
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
       <MerchantBalance balance={9141} interest={13} />
-      <div className="flex justify-around mt-3">
+      <div className="flex justify-around mt-5">
         <Link href="/order">
           <Button variant="light" className="text-xl">
             + Create new order
@@ -31,10 +31,10 @@ export default async function IndexPage({
         </Link>
       </div>
       <Divider />
-      <div className="p-4">
+      <div className="p-2">
         <Title>Payments history</Title>
         <Search />
-        <div className="mt-6 overflow-auto h-96">
+        <div className="mt-2 overflow-auto h-96">
           {orders.length > 0 ? (
             orders.map((order) => <OrderCard order={order} />)
           ) : (

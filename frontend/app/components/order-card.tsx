@@ -11,7 +11,7 @@ function determineBadge(status: string) {
   switch (status) {
     case 'Pending':
       return (
-        <Badge color="cyan" icon={ClockIcon}>
+        <Badge color="blue" icon={ClockIcon}>
           Pending  
         </Badge>
       );
@@ -47,12 +47,12 @@ export default function OrderCard({ order }: { order: Order }) {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',  // Agrega una sombra
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
   };
 
   const imageStyle = {
     width: '25px',
-    height: '25px'  // Ajusta el tamaño según sea necesario
+    height: '25px'
   };
 
   return (

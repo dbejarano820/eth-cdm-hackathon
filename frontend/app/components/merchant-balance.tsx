@@ -10,9 +10,10 @@ export default function MerchantBalance({
 }) {
   return (
     <Card
-      className="max-w-xs mx-auto"
+      style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}
+      className="mx-0 mx-auto"
       decoration="left"
-      decorationColor="indigo"
+      decorationColor="blue"
     >
       <div className="flex justify-between">
         <Text>Balance</Text>
@@ -21,12 +22,12 @@ export default function MerchantBalance({
           isIncreasePositive={true}
           size="xs"
         >
-          +${interest.toLocaleString()}
+          + ${interest.toLocaleString()+',00'}
         </BadgeDelta>
       </div>
-
       <div className="flex items-center justify-between">
-        <Metric>${balance.toLocaleString()}</Metric>
+        <h1 style={{ fontSize: '2rem', color: '#434242' }}>$ {balance.toLocaleString()+',00'}</h1>
+        {/* <h1>$ {balance.toLocaleString()}</h1> */}
       </div>
     </Card>
   );
