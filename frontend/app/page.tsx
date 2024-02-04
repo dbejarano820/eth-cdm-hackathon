@@ -20,7 +20,7 @@ export default async function IndexPage({
   const result = await sql`
       SELECT id, amount, payed_amount, order_status
       FROM Orders 
-      WHERE CAST(id AS TEXT) ILIKE ${'%' + search + '%'} OR user_id = ${
+      WHERE user_id = ${
         user.id
       };
   `;
