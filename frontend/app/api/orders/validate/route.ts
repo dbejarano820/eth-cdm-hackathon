@@ -9,6 +9,9 @@ export async function GET(request: Request) {
   const orderId = searchParams.get('orderId');
   const tx = searchParams.get('tx');
 
+  console.log("orderId: ", orderId);
+  console.log("tx: ", tx);
+
   try {
     // traer orden de la bd
     const orders_result =
@@ -30,16 +33,20 @@ export async function GET(request: Request) {
     };
     let detailTx = await axios.post(process.env.RPC_URL as string, params);
 
-    // Check to = Escrow
-    if(process.env.ESCROW_CONTRACT! != detailTx.data.result.to) {
-      throw new Error('Error: incorrect recipient');
-    }
+    // // Check to = Escrow
+    // const escrow = process.env.ESCROW_CONTRACT as string; 
+    // const to = detailTx.data.result.to as string;
+    // if(escrow.toLocaleLowerCase() != to.toLocaleLowerCase()) {
+    //   throw new Error('Error: incorrect recipient');
+    // }
 
     // Obtener el amount
     const decimalValue = BigInt(
       `0x${detailTx.data.result.input.substring(75)}`
     ).toString();
-    const amountTx = parseInt(decimalValue.slice(0, -18));
+    const amountTx = parseInt(decimalValue.slice(0, -6));
+
+    console.log("amountTx: ", amountTx);
 
     // Comparar montos
     let status = 'Completed';
