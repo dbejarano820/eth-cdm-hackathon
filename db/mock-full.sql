@@ -1,14 +1,12 @@
 -- Insert mock data into Users
 INSERT INTO Users (name, email, total_balance) VALUES
-('user1', 'user1@example.com', 1000),
-('user2', 'user2@example.com', 1500),
-('user3', 'user3@example.com', 2000);
+('Benja', 'Benja@Benja.com', 500),
+('Santi8', 'Santi8@Santi8.com', 0);
 
 -- Insert mock data into Wallets
 INSERT INTO Wallets (user_id, public_key, private_key, blockchain, balance) VALUES
-(1, 'pubKey1', 'privKey1', 'Avalanche', 500),
-(2, 'pubKey2', 'privKey2', 'Avalanche', 750),
-(3, 'pubKey3', 'privKey3', 'Avalanche', 300);
+(1, '0x9D5A84498e278EB7FecfAcb5F5424304B0437897', '0x3dbfadabf66a325a0d07f669646a8a707ac4d141cdcd39b5abcf08d5c9cc23bf', 'Avalanche', 500),
+(2, '0x911634677a3656Fd4FFeC4a0Ddd30c5F7821176a', '0x15611b529c50c46515f1ec1c7dfab524aa3e256385708d1d34510b22d77519bd', 'Avalanche', 0);
 
 -- Assuming order_status_enum has been predefined
 -- Insert mock data into Orders

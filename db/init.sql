@@ -28,7 +28,7 @@ CREATE TABLE Orders (
     user_id INTEGER REFERENCES Users(id),
     amount INTEGER NOT NULL,
     description TEXT,
-    payment_url TEXT NOT NULL,
+    payment_url TEXT,
     order_status order_status_enum NOT NULL,
     transaction_hash VARCHAR(255),
     payed_amount INTEGER,
