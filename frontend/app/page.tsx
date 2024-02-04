@@ -15,13 +15,16 @@ export default async function IndexPage({
   const user = getUser();
   const search = searchParams.q ?? '';
   //filter by current user_id as well
+
+  console.log("user.id: ", user.id);
   const result = await sql`
       SELECT id, amount, payed_amount, order_status
       FROM Orders 
-      WHERE CAST(id AS TEXT) ILIKE ${'%' + search + '%'} AND user_id = ${
+      WHERE CAST(id AS TEXT) ILIKE ${'%' + search + '%'} OR user_id = ${
         user.id
       };
-    `;
+  `;
+
   const orders = result.rows as Order[];
 
   const userData = await sql`
