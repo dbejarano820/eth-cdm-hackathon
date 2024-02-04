@@ -22,6 +22,16 @@ export default function StatsPage() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const user = getUser();
 
+  const formatAsCurrency = (value: string) => {
+    const numberValue = parseFloat(value.replace(/[^0-9.-]/g, ''));
+  
+    if (isNaN(numberValue)) {
+      return ''; // Manejar entrada inválida
+    }
+  
+    return numberValue.toLocaleString('es-ES', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  };
+  
   const handleSubmit = async () => {
     setIsSubmitting(true);
     const response = await fetch(
@@ -54,6 +64,7 @@ export default function StatsPage() {
         <div className="my-3">
           <Title>Amount</Title>
           <NumberInput
+            enableStepper={false}
             icon={CurrencyDollarIcon}
             placeholder="Amount"
             value={amount}
@@ -61,23 +72,42 @@ export default function StatsPage() {
             disabled={isSubmitting}
           />
         </div>
+        <Title>Description</Title>
         <TextInput
           className="h-10"
-          placeholder="Ingrese una descripción"
+          placeholder="Order description (optional)"
           type="text"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           disabled={isSubmitting}
         />
       </div>
-      <Button onClick={handleSubmit} disabled={isSubmitting}>
-        Cobrar
-      </Button>
+      <div className="flex justify-center mt-4">
+        <Button
+          variant="primary"
+          onClick={handleSubmit}
+          disabled={!!qrCode}
+          className="shadow-md"  // Agrega sombra al botón
+        >
+          Create QR order
+        </Button>
+      </div>
       {qrCode && !isSubmitting && (
-        <div className="my-3">
-          <QRCode value={qrCode} />
+      <div className="flex flex-col items-center justify-center my-4">
+        <div className="border border-gray-300 p-2 rounded-md">
+          <QRCode
+            size={300}
+            renderAs="canvas"
+            value={qrCode}
+          />
         </div>
-      )}
+        <h1
+          className="text-sm text-gray-600 mt-1"
+        >
+          Show this QR to your client
+        </h1>
+      </div>
+    )}
     </main>
   );
 }
