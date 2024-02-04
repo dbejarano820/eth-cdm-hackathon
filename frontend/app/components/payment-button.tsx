@@ -1,5 +1,6 @@
 'use client';
 import { Button } from '@tremor/react';
+import { useRouter } from 'next/navigation';
 
 export function PaymentButton({
   txHash,
@@ -8,6 +9,8 @@ export function PaymentButton({
   txHash: string;
   orderId: string;
 }) {
+  const router = useRouter();
+
   const handleSubmit = async () => {
     console.log('Payment');
     if (!txHash) {
@@ -26,8 +29,8 @@ export function PaymentButton({
       );
       const result = await response.json();
       if (response.ok) {
-        // Handle success response
         alert('Payment validated successfully!');
+        router.refresh();
       } else {
         // Handle server errors or payment validation failures
         alert(result.message || 'Payment validation failed.');
@@ -39,8 +42,8 @@ export function PaymentButton({
   };
 
   return (
-    <Button onClick={handleSubmit} variant="light">
-      Submit TX Hash
+    <Button className="mt-3 w-full" onClick={handleSubmit} variant="primary">
+      Validate
     </Button>
   );
 }

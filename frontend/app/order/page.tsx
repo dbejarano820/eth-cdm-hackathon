@@ -24,14 +24,19 @@ export default function StatsPage() {
 
   const formatAsCurrency = (value: string) => {
     const numberValue = parseFloat(value.replace(/[^0-9.-]/g, ''));
-  
+
     if (isNaN(numberValue)) {
       return ''; // Manejar entrada inválida
     }
-  
-    return numberValue.toLocaleString('es-ES', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    return numberValue.toLocaleString('es-ES', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
   };
-  
+
   const handleSubmit = async () => {
     setIsSubmitting(true);
     const response = await fetch(
@@ -87,27 +92,21 @@ export default function StatsPage() {
           variant="primary"
           onClick={handleSubmit}
           disabled={!!qrCode}
-          className="shadow-md"  // Agrega sombra al botón
+          className="shadow-md" // Agrega sombra al botón
         >
           Create QR order
         </Button>
       </div>
       {qrCode && !isSubmitting && (
-      <div className="flex flex-col items-center justify-center my-4">
-        <div className="border border-gray-300 p-2 rounded-md">
-          <QRCode
-            size={300}
-            renderAs="canvas"
-            value={qrCode}
-          />
+        <div className="flex flex-col items-center justify-center my-4">
+          <div className="border border-gray-300 p-2 rounded-md">
+            <QRCode size={300} renderAs="canvas" value={qrCode} />
+          </div>
+          <h1 className="text-sm text-gray-600 mt-1">
+            Show this QR to your client
+          </h1>
         </div>
-        <h1
-          className="text-sm text-gray-600 mt-1"
-        >
-          Show this QR to your client
-        </h1>
-      </div>
-    )}
+      )}
     </main>
   );
 }

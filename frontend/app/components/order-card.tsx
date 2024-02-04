@@ -11,7 +11,7 @@ import {
   XMarkIcon
 } from '@heroicons/react/24/outline';
 
-function determineBadge(status: string) {
+export function determineBadge(status: string) {
   switch (status) {
     case 'Pending':
       return (

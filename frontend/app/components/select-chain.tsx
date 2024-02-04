@@ -1,5 +1,5 @@
 import { Select, SelectItem } from '@tremor/react';
-import { BLOCKCHAINS } from '../constants';
+import { BLOCKCHAINS, blockchainImages } from '../constants';
 
 interface SelectChainProps {
   value: string;
@@ -12,18 +12,6 @@ export function SelectChain({ value, setValue, disabled }: SelectChainProps) {
     width: '25px',
     height: '25px',
     marginRight: '10px'
-  };
-
-  interface BlockchainImagesMap {
-    [key: string]: string;
-  }
-
-  const blockchainImages: BlockchainImagesMap = {
-    Ethereum: 'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=002',
-    Avalanche: 'https://cryptologos.cc/logos/avalanche-avax-logo.png?v=029',
-    Vara: 'https://i.ibb.co/TTKGKPW/favicon-V2.png',
-    Starknet:
-      'https://pbs.twimg.com/profile_images/1656626805816565763/WyFDMG6u_400x400.png'
   };
 
   return (

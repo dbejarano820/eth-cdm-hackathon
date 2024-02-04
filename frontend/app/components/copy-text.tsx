@@ -31,13 +31,16 @@ const CopyToClipboardButton = ({ textToCopy }: { textToCopy: string }) => {
     }
   };
 
+  const address = textToCopy; // Asume que textToCopy es tu dirección de Ethereum
+  const shortenedAddress = `${address.slice(0, 8)}...${address.slice(-4)}`;
+
   return (
     <Button
       variant="secondary"
       icon={ClipboardDocumentCheckIcon}
       onClick={() => copyTextToClipboard(textToCopy)}
     >
-      {textToCopy}
+      {shortenedAddress}
     </Button>
   );
 };
