@@ -58,7 +58,7 @@ export async function GET(request: Request) {
     // actualizar orden a (incomplete o completed)
     await sql`UPDATE Orders SET transaction_hash = ${tx}, payed_amount = ${newBalance}, order_status = ${status} WHERE id = ${orderId};`;
     
-    await sql`UPDATE Wallets SET balance = ${newBalance} WHERE user_id = ${order.user_id} AND blockchain = ${order.blockchain};`;
+    await sql`UPDATE Wallets SET balance = ${user_wallet.balance + newBalance} WHERE user_id = ${order.user_id} AND blockchain = ${order.blockchain};`;
 
     // pegarle al contrato escrow
     const ABI = [
