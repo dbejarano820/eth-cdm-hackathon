@@ -43,24 +43,13 @@ function determineBadge(status: string) {
 }
 
 export default function OrderCard({ order }: { order: Order }) {
-  const divStyle = {
-    backgroundColor: '#faf7f7',
-    border: '1px solid #ddd',
-    padding: '4%',
-    borderRadius: '15px',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' // Agrega una sombra
-  };
-
   const imageStyle = {
     width: '25px',
     height: '25px' // Ajusta el tamaño según sea necesario
   };
 
   return (
-    <Card style={divStyle} className="mx-0 my-2">
+    <Card className="bg-[#faf7f7] border border-[#ddd] p-4 rounded-lg flex flex-row justify-between shadow-md mx-0 my-2">
       <div>
         {determineBadge(order.order_status)}
         <h1 style={{ fontSize: '1.5rem', color: '#636262' }}>
