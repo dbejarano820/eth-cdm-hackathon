@@ -30,6 +30,11 @@ export async function GET(request: Request) {
     };
     let detailTx = await axios.post(process.env.RPC_URL as string, params);
 
+    // Check to = Escrow
+    if(process.env.ESCROW_CONTRACT! != detailTx.data.result.to) {
+      throw new Error('Error: incorrect recipient');
+    }
+
     // Obtener el amount
     const decimalValue = BigInt(
       `0x${detailTx.data.result.input.substring(75)}`
