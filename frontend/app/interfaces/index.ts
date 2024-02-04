@@ -28,5 +28,6 @@ export interface Order {
   description: string;
   order_status: OrderStatusLabel;
   transaction_hash: string;
+  blockchain: string;
   payed_amount: number;
 }
