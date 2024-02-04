@@ -12,6 +12,7 @@ import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { SelectChain } from '../components/select-chain';
 import { BackButton } from '../components/back-button';
 import QRCode from 'qrcode.react';
+import { getUser } from '../utils/getUser';
 
 export default function StatsPage() {
   const [selectedChain, setSelectedChain] = useState<string>('');
@@ -19,13 +20,12 @@ export default function StatsPage() {
   const [description, setDescription] = useState<string>('');
   const [qrCode, setQRCode] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const user = getUser();
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    // Aquí iría la lógica para llamar a tu API con los datos del formulario
-    // const response = await fetch('tu-api-endpoint', { ... });
     const response = await fetch(
-      `/api/orders/create?userId=${1}&amount=${amount}&description=${description}&blockchain=${selectedChain}`,
+      `/api/orders/create?userId=${user.id}&amount=${amount}&description=${description}&blockchain=${selectedChain}`,
       {
         method: 'GET',
         headers: {
