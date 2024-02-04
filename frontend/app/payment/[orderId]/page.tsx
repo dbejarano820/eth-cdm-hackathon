@@ -12,12 +12,12 @@ export default async function PaymentPage({
 }) {
   console.log('ORDERID:', params.orderId);
   const results = await sql`
-      SELECT id, amount, payed_amount, order_status, user_id, blockchain
+      SELECT *
       FROM Orders 
       WHERE id = ${params.orderId};
     `;
-
-  const data = results.rows[0] as any;
+    
+  const data = results.rows[0];
   const escrow_address = ESCROW_MAP['Avalanche'];
 
   return (
