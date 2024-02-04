@@ -9,7 +9,10 @@ export async function GET(request: Request) {
     
     try {
         const wallets_result = await sql`SELECT * from Wallets WHERE user_id = ${userId} and blockchain = ${blockchain};`;
-        if (wallets_result.rows.length > 0) throw new Error('Error: The user already has a wallet');
+        if (wallets_result.rows.length > 0) {
+            const wallet = wallets_result.rows[0];
+            return NextResponse.json({ wallet }, { status: 200 });
+        }
 
         const randomWallet = ethers.Wallet.createRandom();
 
@@ -22,5 +25,7 @@ export async function GET(request: Request) {
         console.log("error: ", error);
         return NextResponse.json({ error }, { status: 500 });
     }
-    return NextResponse.json({ status: 200 });
+    const wallets_result = await sql`SELECT * from Wallets WHERE user_id = ${userId} and blockchain = ${blockchain};`;
+    const wallet = wallets_result.rows[0];
+    return NextResponse.json({ wallet }, { status: 200 });
 }
