@@ -44,24 +44,25 @@ export default function StatsPage() {
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
       <BackButton />
       <div className="my-6">
-        <Metric className="mb-3">Genere un cobro</Metric>
+        <Metric className="mb-3">New order</Metric>
+        <Title>Payment method</Title>
         <SelectChain
           value={selectedChain}
           setValue={setSelectedChain}
           disabled={isSubmitting}
         />
         <div className="my-3">
-          <Title>Monto por cobrar:</Title>
+          <Title>Amount</Title>
           <NumberInput
             icon={CurrencyDollarIcon}
-            placeholder="Monto..."
+            placeholder="Amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             disabled={isSubmitting}
           />
         </div>
         <TextInput
-          className="h-8"
+          className="h-10"
           placeholder="Ingrese una descripción"
           type="text"
           value={description}

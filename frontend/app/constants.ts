@@ -1,4 +1,4 @@
-export const BLOCKCHAINS = ['Avalanche', 'Ethereum', 'Vara'];
+export const BLOCKCHAINS = ['Avalanche', 'Ethereum', 'Vara', 'Starknet'];
 
 export const ESCROW_MAP = {
   Avalanche: '0x123456789',
