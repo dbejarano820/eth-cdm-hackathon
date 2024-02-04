@@ -9,6 +9,7 @@ export function PaymentButton({
   orderId: string;
 }) {
   const handleSubmit = async () => {
+    console.log("Payment");
     if (!txHash) {
       alert('Please enter a TX hash.');
       return;
@@ -38,7 +39,7 @@ export function PaymentButton({
   };
 
   return (
-    <Button onClick={() => handleSubmit} variant="light">
+    <Button onClick={handleSubmit} variant="light">
       Submit TX Hash
     </Button>
   );
